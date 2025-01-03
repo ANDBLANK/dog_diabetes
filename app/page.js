@@ -7,9 +7,8 @@ import FadeInImage from "@/app/components/fade-in-image";
 
 export default function Component() {
   return (
-    <div className="relative flex h-dvh w-full flex-col overflow-hidden bg-background">
-      <BasicNavbar />
-      <main className="container mx-auto flex flex-1 flex-col items-center justify-center overflow-hidden px-8">
+    <div className=" flex h-dvh w-full flex-col bg-background">
+      <main className="w-full h-full flex flex-col items-center justify-center">
         <section className="z-20 flex flex-col items-center justify-center gap-[18px] sm:gap-6">
           {/* <Button
             className="h-9 overflow-hidden border-1 border-default-100 bg-default-50 px-[18px] py-2 text-small font-normal leading-5 text-default-500"

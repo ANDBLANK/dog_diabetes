@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
+import BasicNavbar from "@/app/components/basic-navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <BasicNavbar />
+
         <NextUIProvider>{children}</NextUIProvider>
       </body>
     </html>
