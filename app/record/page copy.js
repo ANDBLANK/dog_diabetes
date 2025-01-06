@@ -10,11 +10,6 @@ import {
   Skeleton,
 } from "@nextui-org/react";
 import Circular from "./components/Circular";
-import SlideRight from "@/app/components/animation/SlideRight";
-import { FaChevronLeft } from "react-icons/fa";
-import { useRouter } from "next/navigation";
-import SlideUp from "@/app/components/animation/SlideUp";
-
 export default function Camera() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -25,7 +20,6 @@ export default function Camera() {
   const [photoTaken, setPhotoTaken] = useState(false);
   const [stream, setStream] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     console.log("Camera component mounted");
@@ -60,7 +54,7 @@ export default function Camera() {
   // 카메라 스트림 중지 함수 추가
   const stopCamera = () => {
     if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach(track => track.stop());
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
@@ -124,95 +118,72 @@ export default function Camera() {
       className="flex flex-col justify-center items-center w-screen gap-y-5"
       style={{ height: "calc(100vh - 60px)" }}
     >
-      <div className="absolute top-16 left-4 z-10">
-        <Button
-          isIconOnly
-          variant="light"
-          onClick={() => router.back()}
-          className="text-xl"
-        >
-          <FaChevronLeft />
-        </Button>
-      </div>
       {isSubmitting ? (
-        <SlideUp>
-          <Circular />
-        </SlideUp>
+        <Circular />
       ) : (
-        <div className="flex flex-col justify-center items-center w-screen gap-y-5">
-          <SlideRight>
-            <Card
-              className="py-4 border-1 border-gray-200 p-4 w-[90vw]"
-              shadow="none"
-            >
-              <CardBody className="overflow-visible flex justify-center items-center w-full h-[60vh]">
-                {photoTaken ? (
-                  <img
-                    src={photo}
-                    alt="Captured photo"
-                    className="rounded-xl"
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                ) : (
-                  <video
-                    className="rounded-xl"
-                    ref={videoRef}
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    autoPlay
-                  ></video>
-                )}
-              </CardBody>
-            </Card>
-
-            <div className="flex justify-center items-center gap-x-4 w-full mt-5">
-              {!cameraActive && !photoTaken && (
+        <>
+          <Card
+            className="py-4 border-1 border-gray-200 p-4 w-[90vw]"
+            shadow="none"
+          >
+            <CardBody className="overflow-visible flex justify-center items-center w-full h-[60vh]">
+              {photoTaken ? (
+                <img
+                  src={photo}
+                  alt="Captured photo"
+                  className="rounded-xl"
+                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                />
+              ) : (
+                <video
+                  className="rounded-xl"
+                  ref={videoRef}
+                  style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                  autoPlay
+                ></video>
+              )}
+            </CardBody>
+          </Card>
+          <div className="flex justify-center items-center gap-x-4 w-full">
+            {!cameraActive && !photoTaken && (
+              <Button
+                className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                color="primary"
+                onClick={startCamera}
+              >
+                촬영 시작
+              </Button>
+            )}
+            {cameraActive && !photoTaken && (
+              <Button
+                className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                color="primary"
+                onClick={capturePhoto}
+              >
+                사진 촬영
+              </Button>
+            )}
+            {photoTaken && (
+              <div className="flex gap-x-2 w-full px-10">
+                <Button
+                  className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
+                  color="default"
+                  onClick={handleBack}
+                >
+                  다시 촬영
+                </Button>
                 <Button
                   className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
                   color="primary"
-                  onClick={startCamera}
+                  onClick={handleSubmit}
                 >
-                  촬영 시작
+                  제출하기
                 </Button>
-              )}
-              {cameraActive && !photoTaken && (
-                <Button
-                  className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
-                  color="primary"
-                  onClick={capturePhoto}
-                >
-                  사진 촬영
-                </Button>
-              )}
-              {photoTaken && (
-                <div className="flex gap-x-2 w-full px-10">
-                  <Button
-                    className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
-                    color="default"
-                    onClick={handleBack}
-                  >
-                    다시 촬영
-                  </Button>
-                  <Button
-                    className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
-                    color="primary"
-                    onClick={handleSubmit}
-                  >
-                    제출하기
-                  </Button>
-                </div>
-              )}
-            </div>
-            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-          </SlideRight>
-        </div>
+              </div>
+            )}
+          </div>
+          <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+        </>
       )}
     </div>
   );

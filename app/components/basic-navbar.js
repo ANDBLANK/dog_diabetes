@@ -13,31 +13,34 @@ import {
   Button,
   Divider,
   cn,
-  Image,
 } from "@nextui-org/react";
 import {Icon} from "@iconify/react";
-import { useRouter } from 'next/navigation';
 
 import {AcmeIcon} from "./social";
 
 const menuItems = [
-  
-  {'label': '홈', 'href': '/'},
-  {'label': '촬영', 'href': '/record'},
-  {'label': '갤러리', 'href': '/gallery'},
-  
+  {'label':'홈', 'href':'/'},
+  {'label':'촬영', 'href':'/record'},
+  {'label':'갤러리', 'href':'/gallery'},
 ];
 
 const BasicNavbar = React.forwardRef(({classNames = {}, ...props}, ref) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const router = useRouter();
+
+  React.useEffect(() => {
+    if (isMenuOpen) {
+      document.documentElement.style.paddingRight = '0px';
+    } else {
+      document.documentElement.style.paddingRight = '';
+    }
+  }, [isMenuOpen]);
 
   return (
     <Navbar
       ref={ref}
       {...props}
       classNames={{
-        base: cn("border-default-100 bg-transparent fixed top-0 left-0 right-0 z-50", {
+        base: cn("border-default-100 bg-transparent", {
           "bg-default-200/50 dark:bg-default-100/50": isMenuOpen,
         }),
         wrapper: "w-full justify-center",
@@ -50,53 +53,26 @@ const BasicNavbar = React.forwardRef(({classNames = {}, ...props}, ref) => {
     >
       {/* Left Content */}
       <NavbarBrand>
-        <div className="rounded-full bg-default-foreground text-background flex items-center justify-center">
-          {/* <Image src="/logo/logo.png" alt="logo" width={100} height={50} /> */}
-          {/* <img src="/logo/logo.png" alt="logo" /> */}
-        </div>
+        {/* <div className="rounded-full bg-default-foreground text-background">
+          <AcmeIcon size={34} />
+        </div> */}
         <Link href="/">
-          <span className="font-bold text-2xl text-black">프롬더셀</span>
+          <span className="text-2xl font-bold text-black">프롬더셀</span>
         </Link>
+        
       </NavbarBrand>
 
       {/* Center Content */}
-      <NavbarContent justify="center" className="gap-x-10">
-        {menuItems.map((item) => (
-          <NavbarItem
-            key={item.href}
-            isActive={router.pathname === item.href}
-            className={`text-xl ${router.pathname === item.href ? 'font-bold' : 'text-default-500'} text-black`}
-          >
-            <Link
-              className="text-black"
-              aria-current={router.pathname === item.href ? 'page' : undefined}
-              href={item.href}
-              size="sm"
-            >
+      <NavbarContent justify="center">
+        {menuItems.map((item, index) => (
+          <NavbarItem key={index} isActive className="data-[active='true']:font-medium[date-active='true']">
+            <Link aria-current="page" className="text-default-foreground" href={item.href} size="sm">
               {item.label}
             </Link>
           </NavbarItem>
         ))}
+        
       </NavbarContent>
-
-      {/* Right Content */}
-      {/* <NavbarContent className="hidden md:flex" justify="end">
-        <NavbarItem className="ml-2 !flex gap-2">
-          <Button className="text-default-500" radius="full" variant="light">
-            Login
-          </Button>
-          <Button
-            className="bg-default-foreground font-medium text-background"
-            color="secondary"
-            endContent={<Icon icon="solar:alt-arrow-right-linear" />}
-            radius="full"
-            variant="flat"
-          >
-            Get Started
-          </Button>
-        </NavbarItem>
-      </NavbarContent> */}
-
       <NavbarMenuToggle className="text-default-400 md:hidden" />
 
       <NavbarMenu
@@ -111,16 +87,6 @@ const BasicNavbar = React.forwardRef(({classNames = {}, ...props}, ref) => {
           },
         }}
       >
-        {/* <NavbarMenuItem>
-          <Button fullWidth as={Link} href="/#" variant="faded">
-            Sign In
-          </Button>
-        </NavbarMenuItem>
-        <NavbarMenuItem className="mb-4">
-          <Button fullWidth as={Link} className="bg-foreground text-background" href="/#">
-            Get Started
-          </Button>
-        </NavbarMenuItem> */}
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link className="mb-2 w-full text-default-500" href={item.href} size="md">
