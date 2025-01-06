@@ -26,6 +26,7 @@ export default function Camera() {
   const [stream, setStream] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const [facingMode, setFacingMode] = useState("user");
 
   useEffect(() => {
     console.log("Camera component mounted");
@@ -43,7 +44,7 @@ export default function Camera() {
     try {
       console.log("Starting camera...");
       const newStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: { facingMode: facingMode }
       });
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
@@ -107,6 +108,13 @@ export default function Camera() {
   const handleSubmit = () => {
     setIsSubmitting(true);
     stopCamera();
+  };
+
+  // 컴메라 전환 함수 추가
+  const switchCamera = async () => {
+    stopCamera();
+    setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
+    setTimeout(startCamera, 100);
   };
 
   // 컴포넌트 언마운트 시 정리
@@ -183,13 +191,24 @@ export default function Camera() {
                 </Button>
               )}
               {cameraActive && !photoTaken && (
-                <Button
-                  className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
-                  color="primary"
-                  onClick={capturePhoto}
-                >
-                  사진 촬영
-                </Button>
+                <div className="flex gap-x-2 w-full px-10">
+                                    <Button
+                    className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
+                    color="default"
+
+                    onClick={switchCamera}
+                  >
+                    카메라 전환
+                  </Button>
+                  <Button
+                    className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                    color="primary"
+                    onClick={capturePhoto}
+                  >
+                    사진 촬영
+                  </Button>
+
+                </div>
               )}
               {photoTaken && (
                 <div className="flex gap-x-2 w-full px-10">
