@@ -113,7 +113,7 @@ function ResultModal({
                         </Button>
                       ))
                   ) : (
-                    <Button className="w-1/2 bg-default-foreground text-background font-bold">
+                    <div>
                       <Link
                         target="_blank"
                         href={
@@ -124,7 +124,7 @@ function ResultModal({
                       >
                         추천제품
                       </Link>
-                    </Button>
+                    </div>
                   ))}
               </div>
               <Divider orientation="horizontal" className="my-4"></Divider>

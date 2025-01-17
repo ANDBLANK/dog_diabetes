@@ -294,7 +294,7 @@ export default function Camera() {
               </div>
             )}
             {cameraActive && !photoTaken && (
-              <>
+              <div className="flex gap-x-2 w-full px-10 justify-center">
                 <Button
                   className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
                   color="default"
@@ -309,7 +309,7 @@ export default function Camera() {
                 >
                   사진 촬영
                 </Button>
-              </>
+              </div>
             )}
             {photoTaken && (
               <div className="flex gap-x-2 w-full px-10">
