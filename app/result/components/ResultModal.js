@@ -91,7 +91,7 @@ function ResultModal({
                   )?.subtitle
                 }
               </div>
-              <div className="flex justify-center w-full gap-2">
+              <div className="grid grid-cols-2 justify-center w-full gap-2">
                 {targetItem?.canditates?.find(
                   (item) => item.title === selectedItem?.text
                 )?.link &&
@@ -105,11 +105,14 @@ function ResultModal({
                       ?.link.map((link, index) => (
                         <div
                           key={index}
-                          className="w-1/2 bg-default-foreground text-background font-bold"
+                          className="text-background font-bold col-span-1 flex justify-center items-center"
                         >
+                          
                           <Link className="text-primary underline font-bold" target="_blank" href={link}>
                             추천제품 {index + 1}
                           </Link>
+                          
+                          
                         </div>
                       ))
                   ) : (
