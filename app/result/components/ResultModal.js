@@ -103,18 +103,19 @@ function ResultModal({
                     targetItem?.canditates
                       ?.find((item) => item.title === selectedItem?.text)
                       ?.link.map((link, index) => (
-                        <Button
+                        <div
                           key={index}
                           className="w-1/2 bg-default-foreground text-background font-bold"
                         >
-                          <Link target="_blank" href={link}>
+                          <Link className="text-primary underline font-bold" target="_blank" href={link}>
                             추천제품 {index + 1}
                           </Link>
-                        </Button>
+                        </div>
                       ))
                   ) : (
                     <div>
                       <Link
+                        className="text-primary underline font-bold"
                         target="_blank"
                         href={
                           targetItem?.canditates?.find(
