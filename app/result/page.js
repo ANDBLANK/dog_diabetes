@@ -171,7 +171,7 @@ function page({searchParams}) {
       </div>
       <SlideRight>
         <div className="grid grid-cols-3 gap-4 pt-16 px-10">
-          {proofs?.data?.map((item, index) => (
+          {proofs?.data?.slice(0, 11).map((item, index) => (
             /* eslint-disable no-console */
             <Card
               key={index}
