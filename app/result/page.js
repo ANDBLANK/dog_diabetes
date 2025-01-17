@@ -16,64 +16,61 @@ function page() {
   const [testResult, setTestResult] = useState(null);
 
   const router = useRouter();
-  
-  useEffect(() => {
-    const data=[
-      {
-      'title':'잠혈',
-      'result':'안전'
-      },
-      {
-      'title':'빌리루빈',
-      'result':'주의'
-      },
-      {
-      'title':'우노빌리노겐',
-      'result':'위험'
-      },
-      {
-      'title':'케톤체',
-      'result':'심각'
-      },
-      {
-      'title':'단백질',
-      'result':'위험'
-      },
-      {
-      'title':'아질산염',
-      'result':'안전'
-      },
-      {
-      'title':'포도당',
-      'result':'주의'
-      },
-      {
-      'title':'산도',
-      'result':'위험'
-      },
-      {
-      'title':'비중',
-      'result':'심각'
-      },
-      {
-      'title':'백혈구',
-      'result':'위험'
-      },
-      {
-      'title':'아스코르빅산',
-      'result':'심각'
-      },
-      {
-      'title':'혈색소',
-      'result':'심각'
-      },
-      
-    ]
-    setTestResult(data);
 
+  useEffect(() => {
+    const data = [
+      {
+        title: "잠혈",
+        result: "안전",
+      },
+      {
+        title: "빌리루빈",
+        result: "주의",
+      },
+      {
+        title: "우노빌리노겐",
+        result: "위험",
+      },
+      {
+        title: "케톤체",
+        result: "심각",
+      },
+      {
+        title: "단백질",
+        result: "위험",
+      },
+      {
+        title: "아질산염",
+        result: "안전",
+      },
+      {
+        title: "포도당",
+        result: "주의",
+      },
+      {
+        title: "산도",
+        result: "위험",
+      },
+      {
+        title: "비중",
+        result: "심각",
+      },
+      {
+        title: "백혈구",
+        result: "위험",
+      },
+      {
+        title: "아스코르빅산",
+        result: "심각",
+      },
+      {
+        title: "혈색소",
+        result: "심각",
+      },
+    ];
+    setTestResult(data);
   }, []);
 
-  
   return (
     <div className="flex flex-col justify-center items-center w-screen gap-y-5">
       <div className="absolute top-16 left-4 z-10">
@@ -103,8 +100,10 @@ function page() {
               <CardBody className="overflow-visible p-0 m-0">
                 <div
                   style={{ backgroundColor: item.img }}
-                  className="w-full h-16 rounded-lg"
-                />
+                  className="w-full h-16 rounded-lg flex justify-center items-center"
+                >
+                  <p className="text-black text-medium font-bold">안전</p>
+                </div>
               </CardBody>
               <CardFooter className="text-small flex flex-col justify-center items-center">
                 <b>{item.title}</b>
@@ -114,7 +113,14 @@ function page() {
           ))}
         </div>
       </SlideRight>
-      <ResultModal candidatesList={candidatesList} testResult={testResult}  selectedItem={selectedItem} isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
+      <ResultModal
+        candidatesList={candidatesList}
+        testResult={testResult}
+        selectedItem={selectedItem}
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onOpenChange={onOpenChange}
+      />
     </div>
   );
 }

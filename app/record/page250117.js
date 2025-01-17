@@ -14,7 +14,6 @@ import SlideRight from "@/app/components/animation/SlideRight";
 import { FaChevronLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import SlideUp from "@/app/components/animation/SlideUp";
-import html2canvas from 'html2canvas';
 
 export default function Camera() {
   const videoRef = useRef(null);
@@ -28,15 +27,6 @@ export default function Camera() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const [facingMode, setFacingMode] = useState("user");
-  const [points, setPoints] = useState(
-    [...Array(11)].map((_, index) => ({
-      pointNo: index + 1,
-      pointX: 0,
-      pointY: 0,
-    }))
-  );
-  const [rgbValues, setRgbValues] = useState([]);
-  console.log("points:", points);
 
   useEffect(() => {
     console.log("Camera component mounted");
@@ -54,7 +44,7 @@ export default function Camera() {
     try {
       console.log("Starting camera...");
       const newStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: "user" },
+        video: { facingMode: facingMode }
       });
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
@@ -64,7 +54,7 @@ export default function Camera() {
         console.log("Camera started successfully");
       }
     } catch (error) {
-      console.log("Error accessing camera:", error);
+      console.error("Error accessing camera:", error);
     }
   };
 
@@ -81,54 +71,27 @@ export default function Camera() {
   };
 
   // 사진 캡처
-  const capturePhoto = async () => {
-    try {
-      const element = document.querySelector('.capture-area'); // Ensure this class is on the element you want to capture
-      if (!element) {
-        console.error("Element with class 'capture-area' not found.");
-        return;
-      }
-      const canvas = await html2canvas(element);
-      const imageData = canvas.toDataURL("image/png");
+  const capturePhoto = () => {
+    if (videoRef.current && canvasRef.current) {
+      const context = canvasRef.current.getContext("2d");
+      const width = videoRef.current.videoWidth;
+      const height = videoRef.current.videoHeight;
+
+      canvasRef.current.width = width;
+      canvasRef.current.height = height;
+      context.drawImage(videoRef.current, 0, 0, width, height);
+
+      const imageData = canvasRef.current.toDataURL("image/png");
       setPhoto(imageData);
       setPhotoTaken(true);
-
-      // Save the image directly as a file
-      const link = document.createElement('a');
-      link.href = imageData;
-      const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace('T', '_').split('.')[0];
-      link.download = `captured_photo_${timestamp}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Extract RGB values from specified points
-      const imgData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
-      const newRgbValues = points.map(point => {
-        const x = Math.floor(point.pointX);
-        const y = Math.floor(point.pointY);
-        const index = (y * canvas.width + x) * 4;
-        const r = imgData.data[index];
-        const g = imgData.data[index + 1];
-        const b = imgData.data[index + 2];
-        return { pointNo: point.pointNo, r, g, b };
-      });
-      setRgbValues(newRgbValues);
-
-      // Log the RGB values for debugging
-      newRgbValues.forEach(({ pointNo, r, g, b }) => {
-        console.log(`Point ${pointNo}: R=${r}, G=${g}, B=${b}`);
-      });
 
       setPhotoPreviews((prevPreviews) => {
         const newPreviews = [imageData, ...prevPreviews];
         return newPreviews.slice(0, 5);
       });
-    } catch (error) {
-      console.log("Error capturing photo:", error);
     }
   };
-  console.log("rgbValues:", rgbValues);
+
   const handlePreviewClick = (photo) => {
     setSelectedPhoto(photo);
     setCameraActive(false);
@@ -145,23 +108,12 @@ export default function Camera() {
   const handleSubmit = () => {
     setIsSubmitting(true);
     stopCamera();
-
-    if (photo) {
-      const link = document.createElement('a');
-      link.href = photo;
-      link.download = 'captured_photo.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // Proceed to the next screen or perform other actions
   };
 
   // 컴메라 전환 함수 추가
   const switchCamera = async () => {
     stopCamera();
-    setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
+    setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
     setTimeout(startCamera, 100);
   };
 
@@ -172,32 +124,13 @@ export default function Camera() {
     };
   }, []);
 
-  useEffect(() => {
-    if (photoTaken) {
-      const imgElement = document.querySelector('img');
-      if (imgElement) {
-        const imgWidth = imgElement.clientWidth;
-        const imgHeight = imgElement.clientHeight;
-        const newPoints = points.map((point, index) => ({
-          ...point,
-          pointX: imgWidth / 2,
-          pointY: (index * 8 + 7.5) / 100 * imgHeight,
-        }));
-        setPoints(newPoints);
-        newPoints.forEach((point) => {
-          console.log(`Point ${point.pointNo}: x=${point.pointX}, y=${point.pointY}`);
-        });
-      }
-    }
-  }, [photoTaken]);
-
   console.log("Render - videoRef:", videoRef.current);
   console.log("Render - cameraActive:", cameraActive);
   console.log("Render - selectedPhoto:", selectedPhoto);
   return (
     <div
       className="flex flex-col justify-center items-center w-screen gap-y-5"
-      style={{ height: "calc(100vh - 60px)", justifyContent: "center" }}
+      style={{ height: "calc(100vh - 60px)" }}
     >
       <div className="absolute top-16 left-4 z-10">
         <Button
@@ -216,14 +149,11 @@ export default function Camera() {
       ) : (
         <div className="flex flex-col justify-center items-center w-screen gap-y-5">
           <SlideRight>
-            <p className="text-center text-sm text-gray-500">
-              11개의 테스트 팁을 빨간 원안으로 위치시켜주세요
-            </p>
             <Card
               className="py-4 border-1 border-gray-200 p-4 w-[90vw]"
               shadow="none"
             >
-              <CardBody className="overflow-visible flex justify-center items-center w-full h-[60vh] relative capture-area">
+              <CardBody className="overflow-visible flex justify-center items-center w-full h-[60vh] relative">
                 {photoTaken ? (
                   <img
                     src={photo}
@@ -236,38 +166,28 @@ export default function Camera() {
                     }}
                   />
                 ) : (
-                  <video
-                    className="rounded-xl"
-                    ref={videoRef}
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    autoPlay
-                  ></video>
-                )}
-                {!photoTaken && [...Array(11)].map((_, index) => (
-                  <div
-                    key={index}
-                    className="absolute flex items-center justify-center w-full"
-                    style={{
-                      top: `${index * 8 + 7.5}%`,
-                      pointerEvents: "none",
-                    }}
-                  >
-                    <div
-                      className="flex items-center justify-center rounded-full border-2 border-red-500"
+                  <>
+                    <video
+                      className="rounded-xl"
+                      ref={videoRef}
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        marginRight: "5px",
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
                       }}
-                    >
-                      {/* Removed the number inside the circle */}
-                    </div>
-                  </div>
-                ))}
+                      autoPlay
+                    ></video>
+                    <img
+                      src="/path/to/test.png"
+                      alt="Overlay"
+                      className="absolute top-0 left-0 w-full h-full"
+                      style={{
+                        pointerEvents: "none",
+                        opacity: 0.5, // Adjust the opacity as needed
+                      }}
+                    />
+                  </>
+                )}
               </CardBody>
             </Card>
 
@@ -283,9 +203,10 @@ export default function Camera() {
               )}
               {cameraActive && !photoTaken && (
                 <div className="flex gap-x-2 w-full px-10">
-                  <Button
+                                    <Button
                     className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
                     color="default"
+
                     onClick={switchCamera}
                   >
                     카메라 전환
@@ -297,6 +218,7 @@ export default function Camera() {
                   >
                     사진 촬영
                   </Button>
+
                 </div>
               )}
               {photoTaken && (
