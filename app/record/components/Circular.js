@@ -2,26 +2,8 @@ import {CircularProgress, Card, CardBody, CardFooter, Chip} from "@nextui-org/re
 import {useState, useEffect} from "react";
 import { useRouter } from "next/navigation";
 
-export default function App() {
+export default function Circular({progress, setProgress}) {
   const router = useRouter();
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 70) {
-          clearInterval(timer);
-          setTimeout(() => {
-            router.push("/result");
-          }, 0);
-          return 70;
-        }
-        return prevProgress + 10;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [router]);
 
   return (
     <Card className="" shadow="none">
