@@ -10,8 +10,8 @@ import {
   Skeleton,
 } from "@nextui-org/react";
 import Circular from "./components/Circular";
-import html2canvas from 'html2canvas';
-import axios from 'axios';
+import html2canvas from "html2canvas";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import useProof from "@/store/useProof";
 export default function Camera() {
@@ -26,6 +26,7 @@ export default function Camera() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [progress, setProgress] = useState(0);
   const { proofs, setProofs, addProof, clearProofs } = useProof();
+  const [facingMode, setFacingMode] = useState("environment");
 
   const router = useRouter();
 
@@ -45,7 +46,7 @@ export default function Camera() {
     try {
       console.log("Starting camera...");
       const newStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: { facingMode: facingMode },
       });
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
@@ -62,7 +63,7 @@ export default function Camera() {
   // 카메라 스트림 중지 함수 추가
   const stopCamera = () => {
     if (stream) {
-      stream.getTracks().forEach(track => track.stop());
+      stream.getTracks().forEach((track) => track.stop());
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
@@ -108,9 +109,9 @@ export default function Camera() {
 
   // 이미지 저장 및 서버 전송 함수
   const saveImage = async () => {
-    const element = document.querySelector('.capture-area');
+    const element = document.querySelector(".capture-area");
     if (!element) {
-      console.error('Capture element not found');
+      console.error("Capture element not found");
       return;
     }
 
@@ -120,32 +121,32 @@ export default function Camera() {
         logging: false,
         scale: 2,
       });
-      
+
       // Canvas를 Blob으로 변환
-      const blob = await new Promise(resolve => {
-        canvas.toBlob(resolve, 'image/png', 1.0);
+      const blob = await new Promise((resolve) => {
+        canvas.toBlob(resolve, "image/png", 1.0);
       });
 
       // FormData 생성
       const formData = new FormData();
-      formData.append('file', blob, 'captured-image.png');
+      formData.append("file", blob, "captured-image.png");
 
       // API 요청 보내기
       const response = await axios.post(
-        'https://0fpkn84lm0.execute-api.ap-northeast-2.amazonaws.com/extract-colors/',
+        "https://0fpkn84lm0.execute-api.ap-northeast-2.amazonaws.com/extract-colors/",
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            'accept': 'application/json'
-          }
+            "Content-Type": "multipart/form-data",
+            accept: "application/json",
+          },
         }
       );
 
-      console.log('API Response:', response.data);
+      console.log("API Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error('Error saving/sending image:', error);
+      console.error("Error saving/sending image:", error);
       throw error;
     }
   };
@@ -164,23 +165,35 @@ export default function Camera() {
       }, 200);
 
       const result = await saveImage();
-      
+
       clearInterval(progressInterval);
       setProgress(100);
-      
+
       // 결과를 Proof 스토어에 저장
       setProofs(result);
-      
+
       setTimeout(() => {
         router.push(`/result`);
       }, 500);
-
     } catch (error) {
-      console.error('Submit failed:', error);
+      console.error("Submit failed:", error);
       setIsSubmitting(false);
       setProgress(0);
     }
   };
+
+  // 카메라 전환 함수 추가
+  const switchCamera = () => {
+    stopCamera();
+    setFacingMode((prevMode) => (prevMode === "user" ? "environment" : "user"));
+  };
+
+  // useEffect로 facingMode 변경 감지하여 카메라 재시작
+  useEffect(() => {
+    if (!photoTaken) {
+      startCamera();
+    }
+  }, [facingMode]);
 
   // 컴포넌트 언마운트 시 정리
   useEffect(() => {
@@ -209,7 +222,11 @@ export default function Camera() {
                     src={photo}
                     alt="Captured photo"
                     className="rounded-xl"
-                    style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                    style={{
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
+                    }}
                   />
                   {[...Array(11)].map((_, index) => (
                     <div
@@ -235,7 +252,11 @@ export default function Camera() {
                   <video
                     className="rounded-xl"
                     ref={videoRef}
-                    style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                    style={{
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
+                    }}
                     autoPlay
                   ></video>
                   {[...Array(11)].map((_, index) => (
@@ -262,22 +283,33 @@ export default function Camera() {
           </Card>
           <div className="flex justify-center items-center gap-x-4 w-full">
             {!cameraActive && !photoTaken && (
-              <Button
-                className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
-                color="primary"
-                onClick={startCamera}
-              >
-                촬영 시작
-              </Button>
+              <div className="flex gap-x-2 w-full px-10 justify-center">
+                <Button
+                  className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                  color="primary"
+                  onClick={startCamera}
+                >
+                  촬영 시작
+                </Button>
+              </div>
             )}
             {cameraActive && !photoTaken && (
-              <Button
-                className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
-                color="primary"
-                onClick={capturePhoto}
-              >
-                사진 촬영
-              </Button>
+              <>
+                <Button
+                  className="h-10 w-1/2 px-[16px] py-[10px] text-small leading-5 font-bold"
+                  color="default"
+                  onClick={switchCamera}
+                >
+                  카메라 전환
+                </Button>
+                <Button
+                  className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                  color="primary"
+                  onClick={capturePhoto}
+                >
+                  사진 촬영
+                </Button>
+              </>
             )}
             {photoTaken && (
               <div className="flex gap-x-2 w-full px-10">
