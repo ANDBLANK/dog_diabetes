@@ -17,16 +17,8 @@ function page({searchParams}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
   const [testResult, setTestResult] = useState(null);
-  // const { proofs, setProofs, addProof, clearProofs } = useProof();
-  const [proofs, setProofs] = useState([]);
-
-  useEffect(() => {
-    // 데이터 수신 함수 정의
-    window.receiveProofs = (data) => {
-      console.log("Received data:", data);
-      setProofs(data);
-    };
-  }, []);
+  const { proofs, setProofs, addProof, clearProofs } = useProof();
+  console.log('selectedItem:',selectedItem)
   
 
   const router = useRouter();
