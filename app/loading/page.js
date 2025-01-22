@@ -20,7 +20,7 @@ export default function Loading() {
           clearInterval(interval);
           return 100;
         }
-        return prevProgress + 20;
+        return prevProgress + 25;
       });
     }, 1000);
 
