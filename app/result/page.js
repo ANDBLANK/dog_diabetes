@@ -11,22 +11,24 @@ import ResultModal from "./components/ResultModal";
 import { useState, useEffect } from "react";
 import { candidatesList } from "./components/candidates";
 import useProof from "@/store/useProof";
-// import { proofs } from "./components/proofs"; # 테스트용 코드
+import { proofs } from "./components/proofs"
 
 function page({searchParams}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
   const [testResult, setTestResult] = useState(null);
   // const { proofs, setProofs, addProof, clearProofs } = useProof();
-  const [proofs, setProofs] = useState([]);
-
-  useEffect(() => {
-    // 데이터 수신 함수 정의
-    window.receiveProofs = (data) => {
-      console.log("Received data:", data);
-      setProofs(data);
-    };
-  }, []);
+  
+  
+  // const [proofs, setProofs] = useState([]);
+  
+  // useEffect(() => {
+  //   // 데이터 수신 함수 정의
+  //   window.receiveProofs = (data) => {
+  //     console.log("Received data:", data);
+  //     setProofs(data);
+  //   };
+  // }, []);
   
 
   const router = useRouter();

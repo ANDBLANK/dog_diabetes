@@ -40,7 +40,7 @@ function ResultModal({
   console.log("targetItem:", targetItem);
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="h-[80vh]">
       <ModalContent>
         {(onClose) => (
           <>
@@ -75,8 +75,8 @@ function ResultModal({
                   </div>
                 ))}
               </div>
-              <Divider orientation="horizontal" className="my-4"></Divider>
-              <div className="font-bold text-xl text-center max-h-24 overflow-y-auto scrollbar-hide">
+              <Divider orientation="horizontal" className="my-1"></Divider>
+              <div className="font-bold text-lg text-center max-h-[5vh] overflow-y-auto scrollbar-hide">
                 {
                   targetItem?.canditates?.find(
                     (item) => item.title === selectedItem?.text
@@ -84,14 +84,14 @@ function ResultModal({
                 }
               </div>
 
-              <div className="text-sm">
+              <div className="text-sm max-h-[10vh] overflow-y-auto">
                 {
                   targetItem?.canditates?.find(
                     (item) => item.title === selectedItem?.text
                   )?.subtitle
                 }
               </div>
-              <div className="grid grid-cols-2 gap-2 w-full">
+              <div className="grid grid-cols-2 gap-2 w-full ">
                 {targetItem?.canditates?.find(
                   (item) => item.title === selectedItem?.text
                 )?.link &&
@@ -128,9 +128,9 @@ function ResultModal({
                     </Button>
                   ))}
               </div>
-              <Divider orientation="horizontal" className="my-4"></Divider>
+              <Divider orientation="horizontal" className="my-1"></Divider>
               <div
-                className="flex flex-col overflow-y-auto scrollbar-hide h-48 text-sm"
+                className="flex flex-col  h-[20vh] text-sm overflow-y-auto scrollbar-hide"
                 dangerouslySetInnerHTML={{
                   __html:
                     targetItem?.canditates?.find(
