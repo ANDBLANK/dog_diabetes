@@ -33,7 +33,7 @@ function page({searchParams}) {
   
   return (
     <div className="flex flex-col justify-center items-center w-screen gap-y-5">
-      <div className="absolute top-16 left-4 z-10">
+      {/* <div className="absolute top-16 left-4 z-10">
         <Button
           isIconOnly
           variant="light"
@@ -42,7 +42,7 @@ function page({searchParams}) {
         >
           <FaChevronLeft />
         </Button>
-      </div>
+      </div> */}
       <SlideRight>
         <div className="grid grid-cols-3 gap-4 pt-16 px-10">
           {proofs?.data?.slice(0, 11).map((item, index) => (
