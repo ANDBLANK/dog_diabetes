@@ -21,7 +21,6 @@ import {AcmeIcon} from "./social";
 const menuItems = [
   {'label':'홈', 'href':'/'},
   {'label':'촬영', 'href':'/record'},
-  {'label':'갤러리', 'href':'/gallery'},
 ];
 
 const BasicNavbar = React.forwardRef(({classNames = {}, ...props}, ref) => {
@@ -57,7 +56,7 @@ const BasicNavbar = React.forwardRef(({classNames = {}, ...props}, ref) => {
           <AcmeIcon size={34} />
         </div> */}
         <Link href="/">
-          <span className="text-2xl font-bold text-black">프롬더셀</span>
+          <img src="/logo/logo.png" alt="logo" className="w-28 h-auto" />
         </Link>
         
       </NavbarBrand>

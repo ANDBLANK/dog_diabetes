@@ -13,21 +13,22 @@ export default function Component() {
           <SlideUp>
             <div className="text-center text-[clamp(40px,10vw,44px)] font-bold leading-[1.2] tracking-tighter sm:text-[64px]">
               <div className="bg-hero-section-title bg-clip-text text-transparent">
-                강아지 당뇨 관리를 가장 쉽고 편리하게
+              쉽고 편리한 반려동물 건강 지킴이
               </div>
             </div>
           </SlideUp>
           <SlideUp>
             <p className="text-center font-normal leading-7 text-default-500 sm:w-[466px] sm:text-[18px]">
-              우리는 혈당 관리, 식단 계획, 건강 모니터링까지 반려견의 당뇨
-              관리를 간편하게 도와줍니다.
+            간단한 소변검사만으로 의심 질병을 조기 발견하고, 
+관리방법 및 맞춤 영양제까지 추천해 드립니다.
+
             </p>
             <div className="flex flex-col items-center justify-center gap-6 sm:flex-row mt-5">
               <Button
-                className="h-10 w-[163px] bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                className="h-12 w-full bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
                 radius="full"
               >
-                <Link href="/record" className="text-white">
+                <Link href="/record" className="text-white text-xl">
                   촬영 시작
                 </Link>
               </Button>

@@ -207,6 +207,9 @@ export default function Camera() {
       className="flex flex-col justify-center items-center w-screen gap-y-5"
       style={{ height: "calc(100vh - 60px)" }}
     >
+      <p>
+      ‘동그라미 안에 정렬 후 사진촬영 해주세요’
+      </p>
       {isSubmitting ? (
         <Circular progress={progress} setProgress={setProgress} />
       ) : (

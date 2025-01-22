@@ -132,13 +132,14 @@ function ResultModal({
                   ))}
               </div>
               <Divider orientation="horizontal" className="my-4"></Divider>
-              <div className="flex flex-col overflow-y-auto scrollbar-hide h-48 text-sm">
-                {
-                  targetItem?.canditates?.find(
+              <div
+                className="flex flex-col overflow-y-auto scrollbar-hide h-48 text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: targetItem?.canditates?.find(
                     (item) => item.title === selectedItem?.text
-                  )?.description
-                }
-              </div>
+                  )?.description || "",
+                }}
+              />
             </ModalBody>
             <ModalFooter>
               <div className="flex justify-center items-center w-full">
