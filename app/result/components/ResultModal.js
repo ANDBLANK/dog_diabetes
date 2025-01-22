@@ -91,7 +91,7 @@ function ResultModal({
                   )?.subtitle
                 }
               </div>
-              <div className="grid grid-cols-2 justify-center w-full gap-2">
+              <div className="grid grid-cols-2 gap-2 w-full">
                 {targetItem?.canditates?.find(
                   (item) => item.title === selectedItem?.text
                 )?.link &&
@@ -103,48 +103,52 @@ function ResultModal({
                     targetItem?.canditates
                       ?.find((item) => item.title === selectedItem?.text)
                       ?.link.map((link, index) => (
-                        <div
+                        <Button
                           key={index}
-                          className="text-background font-bold col-span-1 flex justify-center items-center"
+                          className="bg-black text-white font-bold"
+                          target="_blank"
+                          onClick={() => window.open(link, "_blank")}
                         >
-                          
-                          <Link className="text-primary underline font-bold" target="_blank" href={link}>
-                            추천제품 {index + 1}
-                          </Link>
-                          
-                          
-                        </div>
+                          추천제품 {index + 1}
+                        </Button>
                       ))
                   ) : (
-                    <div>
-                      <Link
-                        className="text-primary underline font-bold"
-                        target="_blank"
-                        href={
+                    <Button
+                      className="bg-black text-white font-bold col-span-2"
+                      onClick={() =>
+                        window.open(
                           targetItem?.canditates?.find(
                             (item) => item.title === selectedItem?.text
-                          )?.link
-                        }
-                      >
-                        추천제품
-                      </Link>
-                    </div>
+                          )?.link,
+                          "_blank"
+                        )
+                      }
+                    >
+                      추천제품
+                    </Button>
                   ))}
               </div>
               <Divider orientation="horizontal" className="my-4"></Divider>
               <div
                 className="flex flex-col overflow-y-auto scrollbar-hide h-48 text-sm"
                 dangerouslySetInnerHTML={{
-                  __html: targetItem?.canditates?.find(
-                    (item) => item.title === selectedItem?.text
-                  )?.description || "",
+                  __html:
+                    targetItem?.canditates?.find(
+                      (item) => item.title === selectedItem?.text
+                    )?.description || "",
                 }}
               />
             </ModalBody>
             <ModalFooter>
               <div className="flex justify-center items-center w-full">
                 <Button
-                  className="h-10 w-1/2 bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold"
+                  className={`h-10 ${
+                    targetItem?.canditates?.find(
+                      (item) => item.title === selectedItem?.text
+                    )?.link
+                      ? "w-full"
+                      : "w-1/2"
+                  } bg-default-foreground px-[16px] py-[10px] text-small leading-5 text-background font-bold`}
                   color="primary"
                   onPress={onClose}
                 >
