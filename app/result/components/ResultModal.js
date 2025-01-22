@@ -40,7 +40,7 @@ function ResultModal({
   console.log("targetItem:", targetItem);
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="h-[80vh]">
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="h-[90vh]">
       <ModalContent>
         {(onClose) => (
           <>
