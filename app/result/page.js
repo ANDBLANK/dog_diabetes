@@ -17,18 +17,18 @@ function page({searchParams}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(null);
   const [testResult, setTestResult] = useState(null);
-  // const { proofs, setProofs, addProof, clearProofs } = useProof();
+  const { proofs, setProofs, addProof, clearProofs } = useProof();
   
   
-  const [proofs, setProofs] = useState([]);
+  // const [proofs, setProofs] = useState([]);
   
-  useEffect(() => {
-    // 데이터 수신 함수 정의
-    window.receiveProofs = (data) => {
-      console.log("Received data:", data);
-      setProofs(data);
-    };
-  }, []);
+  // useEffect(() => {
+  //   // 데이터 수신 함수 정의
+  //   window.receiveProofs = (data) => {
+  //     console.log("Received data:", data);
+  //     setProofs(data);
+  //   };
+  // }, []);
   
 
   const router = useRouter();
