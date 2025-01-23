@@ -20,7 +20,7 @@ function page({searchParams}) {
   // const { proofs, setProofs, addProof, clearProofs } = useProof();
   
   
-  // const [proofs, setProofs] = useState([]);
+  const [proofs, setProofs] = useState([]);
   
   useEffect(() => {
     // 데이터 수신 함수 정의
