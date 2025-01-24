@@ -207,7 +207,7 @@ export const candidatesList = [
     img: "#fcdad5",
     price: "2mg/dL",
     canditates:[
-      {title:'안전: 0.1 mg/dL ~ 1 mg/dL (정상 범위)',
+      {title:'안전',
       color:'#fef7f1',
       description:`
     <div>
@@ -230,7 +230,7 @@ export const candidatesList = [
       mainTitle:'안전: 0.1 ~ 1 mg/dL (정상 범위)',
       subtitle:''
       },
-      {title:'주의: 2 mg/dL - 4 mg/dL',
+      {title:'주의',
       color:'#fcdad5',
       description:`
     <div>

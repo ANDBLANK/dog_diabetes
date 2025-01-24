@@ -21,7 +21,7 @@ export const proofs={
           "proofResult": {
               "name": "빌리루빈",
               "value": "#eeafb5",
-              "text": "심각",
+              "text": "위험",
               "level": "3mg/dL"
           }
       },
