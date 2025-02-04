@@ -50,7 +50,7 @@ export const candidatesList = [
 
 `,
       link:'https://smartstore.naver.com/fromthecell/products/7947756406',
-      mainTitle:'주의 : 1+(10 RBC)',
+      mainTitle:'주의 : 10 RBC 미만',
       subtitle:'소량의 혈액이 소변에 섞이는 것은 일시적일 수 있으며, 격렬한 운동 후 나타날 수 있습니다. 하지만, 지속될 경우 요로 감염 또는 경미한 신장 손상을 의미할 수 있습니다'
       },
       {title:'위험',
@@ -72,8 +72,8 @@ export const candidatesList = [
         <p>: 급성신장염, 만성신장염, 빈혈, 요로감염 등</p>
     </div>
       `,
-      link:'https://smartstore.naver.com/fromthecell/products/7947756406',
-      mainTitle:'위험 : 2+(50 RBC)',
+      link:'',
+      mainTitle:'위험 : 10 RBC 이상 - 50 RBC 미만',
       subtitle:'중등도의 혈액이 소변에 나타나는 것은 요로 또는 신장의 중대한 문제를 나타낼 수 있습니다. 즉각적인 검사가 필요합니다.'
       },
       {title:'심각',
@@ -96,8 +96,8 @@ export const candidatesList = [
     </div>
 
       `,
-      link:'https://smartstore.naver.com/fromthecell/products/7947756406',
-      mainTitle:'심각 : 3+(250 RBC)',
+      link:'',
+      mainTitle:'심각 : 50 RBC 이상 - 250 RBC 미만',
       subtitle:'많은 양의 혈액이 소변에 섞여 있으면 신장 손상, 방광암, 또는 요로의 출혈을 의심할 수 있으며 즉각적인 치료가 필요합니다'
       },
     ]
@@ -173,7 +173,7 @@ export const candidatesList = [
         <p>: 간염, 담석, 췌장염, 담도폐쇄 등</p>
     </div>
       `,
-      link:'https://smartstore.naver.com/fromthecell/category/786a2ace3f6c41c5ad712795d00996de?cp=1',
+      link:'',
       mainTitle:'위험: 0.5 mg/dL 이상 - 1 mg/dL미만',
       subtitle:'중등도 이상의 빌리루빈 수치는 간 질환이나 담관 폐쇄를 시사할 수 있습니다. 진단을 받는 것이 중요합니다.'
       },
@@ -196,7 +196,7 @@ export const candidatesList = [
         <p>: 간염, 담석, 췌장염, 담도폐쇄 등</p>
     </div>
 `,
-      link:'https://smartstore.naver.com/fromthecell/category/786a2ace3f6c41c5ad712795d00996de?cp=1',
+      link:'',
       mainTitle:'심각: 1 mg/dL 이상 - 3mg/dL 미만',
       subtitle:'간 질환이나 급성 담관 문제와 같은 중대한 간 기능 이상을 나타내며 즉각적인 검사가 필요합니다.'
       },
@@ -227,7 +227,7 @@ export const candidatesList = [
     </div>
       `,
       link:'',
-      mainTitle:'안전: 0.1 ~ 1 mg/dL (정상 범위)',
+      mainTitle:'안전: 0.1 mg/dL ~ 1 mg/dL (정상 범위)',
       subtitle:''
       },
       {title:'주의',
@@ -250,7 +250,7 @@ export const candidatesList = [
     </div>
       `,
       link:'https://smartstore.naver.com/fromthecell/category/786a2ace3f6c41c5ad712795d00996de?cp=1',
-      mainTitle:'주의: 1+ (2 mg/dL), 2+ (4 mg/dL)',
+      mainTitle:'주의: 2 mg/dL - 4 mg/dL',
       subtitle:'경미한 간 기능 이상 또는 감염을 시사할 수 있습니다.'
       },
       {title:'위험',
@@ -295,8 +295,8 @@ export const candidatesList = [
         <p>: 급성간염,만성 간염, 담관폐쇄, 변비 등</p>
     </div>
       `,
-      link:'https://smartstore.naver.com/fromthecell/category/786a2ace3f6c41c5ad712795d00996de?cp=1',
-      mainTitle:'심각:9 mg/dL ~ 12 mg/dL',
+      link:'',
+      mainTitle:'심각: 9 mg/dL ~ 12 mg/dL',
       subtitle:'중대한 간 질환 또는 담관 문제로 인해 즉각적인 검사가 필요합니다.'
       },
     ]
@@ -370,7 +370,7 @@ export const candidatesList = [
       `,
       link:'',
       mainTitle:'위험: 50 mg/dL 이상 ~ 100 mg/dL 미만',
-      subtitle:'당뇨병 관리 부진이나 기아 상태를 나타낼 수 있습니다.   추가 검사가 필요합니다.'
+      subtitle:'당뇨병 관리 부진이나 기아 상태를 나타낼 수 있습니다. 추가 검사가 필요합니다.'
       },
       {title:'심각',
       color:'#944868',
@@ -391,7 +391,7 @@ export const candidatesList = [
     </div>
       `,
       link:'',
-      mainTitle:'심각:100 mg/dL 이상',
+      mainTitle:'심각: 100 mg/dL 이상',
       subtitle:'당뇨병성 케톤산증(DKA)의 가능성이 있으며, 즉각적인 치료가 필요합니다.'
       },
     ]
@@ -422,7 +422,7 @@ export const candidatesList = [
     </div>      
       `,
       link:'',
-      mainTitle:'안전: 음성 ~ 1+ (15 mg/dL)',
+      mainTitle:'안전: 음성 ~15 mg/dL 미만',
       subtitle:'정상적으로 소변에는 단백질이 거의 포함되지 않습니다.'
       },
       {title:'주의',
@@ -446,8 +446,8 @@ export const candidatesList = [
     </div>  
       `,
       link:'https://smartstore.naver.com/fromthecell/products/7947756406',
-      mainTitle:'주의: 2+ (30 mg/dL)',
-      subtitle:'경미한 신장 손상 또는 일시적인 단백뇨일 수 있습니다.       운동 후 나타날 수 있으며, 추가 검사를 권장합니다.'
+      mainTitle:'주의: 15 mg/dL 이상 ~ 100 mg/dL 미만',
+      subtitle:'경미한 신장 손상 또는 일시적인 단백뇨일 수 있습니다. 운동 후 나타날 수 있으며, 추가 검사를 권장합니다.'
       },
       {title:'위험',
       color:'#acd36d',
@@ -470,7 +470,7 @@ export const candidatesList = [
     </div>  
       `,
       link:'',
-      mainTitle:'위험: 3+ (100 mg/dL)',
+      mainTitle:'위험: 100 mg/dL 이상 ~ 300 mg/dL 미만',
       subtitle:'신장의 여과 기능이 저하된 상태일 수 있습니다. 지속적인 단백뇨는 신장 질환의 징후입니다.'
       },
       {title:'심각',
@@ -494,7 +494,7 @@ export const candidatesList = [
     </div>  
       `,
       link:'',
-      mainTitle:'심각: 4+ (300 mg/dL) ~ 5+ (1000 mg/dL) ',
+      mainTitle:'심각: 300 mg/dL 이상 ~ 1,000 mg/dL 미만',
       subtitle:'신장 질환, 신증후군의 가능성이 있으며, 즉각적인 치료가 필요합니다.'
       },
     ]
@@ -646,7 +646,7 @@ export const candidatesList = [
     </div>
 `,
       link:'',
-      mainTitle:'심각: 500 mg/dL 이상~ 1,000 mg/dL 미만',
+      mainTitle:'심각: 500 mg/dL 이상 ~ 1,000 mg/dL 미만',
       subtitle:'심각한 고혈당 상태를 시사하며, 즉시 의학적 개입이 필요합니다.'
       },
     ]
@@ -718,7 +718,7 @@ export const candidatesList = [
       link:['https://smartstore.naver.com/fromthecell/products/7947756406','https://smartstore.naver.com/fromthecell/products/7947756406'],      
       mainTitle:`정상 소변 비중 범위: 1.015 ~ 1.045(강아지) 
       정상 소변 비중 범위: 1.035 ~ 1.060(고양이)`,
-      subtitle:'정상적인 소변의 비중 범위입니다.'
+      subtitle:'비중은 소변 농축도를 나타내며, 검사 전 수분 섭취에 영향을 받을 수 있습니다.'
       },
       {title:'주의',
       color:'#759a71',
@@ -734,15 +734,12 @@ export const candidatesList = [
     <p>2. 비중이 감소하는 경우: 신부전, 신우신염</p>
 </div>
       `,
-      link:['https://smartstore.naver.com/fromthecell/products/7947756406',
-        'https://smartstore.naver.com/fromthecell/products/7947756406',
-        'https://smartstore.naver.com/fromthecell/products/7947756406',
-        'https://smartstore.naver.com/fromthecell/products/7947756406'
-      ],
+      link:'https://smartstore.naver.com/fromthecell/products/7947756406',
       mainTitle:`1.015 이하: 희석된 소변으로, 신장 문제와 관련 있을 수 있음(강아지)
 1.045 이상: 농축된 소변으로, 탈수 또는 급성 신장 기능 보상과 관련 있을 수 있음(강아지)
 1.035 이하: 희석된 소변으로, 신장 문제와 관련 있을 수 있음(고양이)
-1.060 이상: 농축된 소변으로, 탈수 또는 급성 신장 기능 보상과 관련 있을 수 있음(고양이)`
+1.060 이상: 농축된 소변으로, 탈수 또는 급성 신장 기능 보상과 관련 있을 수 있음(고양이)
+고양이는 소변을 더 농축하는 경향이 있어, 비중이 낮으면 신장 농축 기능 저하나 신장 기능 장애가 의심될 수 있습니다.`
       ,
       subtitle:''
       },
@@ -896,7 +893,7 @@ export const candidatesList = [
       `,
       link:'',
       mainTitle:'위험: 10 mg/dL이상 ~ 20 mg/dL 미만',
-      subtitle:' 포도당, 혈액, 빌리루빈 등의 검사 결과에 큰 영향을 미칠 수 있으므로 주의가 필요합니다.'
+      subtitle:'포도당, 혈액, 빌리루빈 등의 검사 결과에 큰 영향을 미칠 수 있으므로 주의가 필요합니다.'
       },
       {title:'심각',
       color:'#fce93f',
